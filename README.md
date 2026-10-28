@@ -21,4 +21,6 @@ Open http://localhost:3000 — all state is persisted to localStorage and reseed
 
 ## Live
 
-_URL added after the first Vercel deploy._
+Production: https://nssb-clone-qv0xlrlzq-niti6.vercel.app
+
+> First-time note: if you see a Vercel login page, disable **Vercel Authentication** in the project's Deployment Protection settings to make the clone publicly viewable.
