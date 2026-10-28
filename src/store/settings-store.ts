@@ -21,7 +21,7 @@ const DEFAULTS: Settings = {
   user: {
     firstName: "Admin",
     lastName: "User",
-    email: "admin@nssb.nagaland.gov.in",
+    email: "admin@gmail.com",
     role: "System Administrator",
   },
   examSettings: {

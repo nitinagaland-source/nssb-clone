@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { useSettingsStore } from "@/store/settings-store";
 import { SettingsCard, Field } from "./settings-card";
 
-const ADMIN_DEMO_PASSWORD = "admin";
+const ADMIN_DEMO_PASSWORD = "admin@123";
 
 const schema = z
   .object({
@@ -26,7 +26,7 @@ const schema = z
       if (!v.currentPassword) return false;
       return v.currentPassword === ADMIN_DEMO_PASSWORD;
     },
-    { message: "Current password is incorrect (demo: admin)", path: ["currentPassword"] }
+    { message: "Current password is incorrect (demo: admin@123)", path: ["currentPassword"] }
   )
   .refine(
     (v) => {

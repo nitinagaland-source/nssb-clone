@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 import {
   LayoutDashboard,
   FileText,
@@ -15,6 +16,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/store/auth-store";
 
 const nav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -30,6 +32,8 @@ const nav = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const signOut = useAuthStore((s) => s.signOut);
 
   return (
     <aside className="sidebar-grad fixed inset-y-0 left-0 w-60 flex flex-col text-white z-30">
@@ -87,6 +91,11 @@ export function Sidebar() {
       <div className="px-3 py-4 border-t border-white/10">
         <button
           type="button"
+          onClick={() => {
+            signOut();
+            toast.success("Signed out");
+            router.replace("/login");
+          }}
           className="w-full flex items-center gap-3 h-10 px-3 rounded-xl text-sm font-medium text-white/65 hover:text-white hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
         >
           <LogOut className="h-[18px] w-[18px]" strokeWidth={2} />

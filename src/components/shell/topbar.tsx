@@ -3,6 +3,8 @@
 import { Bell } from "lucide-react";
 import { ExamSwitcher } from "./exam-switcher";
 import { usePathname } from "next/navigation";
+import { useAuthStore } from "@/store/auth-store";
+import { useSettingsStore } from "@/store/settings-store";
 
 const titles: Record<string, string> = {
   "/dashboard": "Dashboard",
@@ -22,6 +24,11 @@ export function Topbar() {
     titles[pathname] ??
     titles[Object.keys(titles).find((k) => pathname.startsWith(k)) ?? "/dashboard"] ??
     "Dashboard";
+  const user = useSettingsStore((s) => s.settings.user);
+  const email = useAuthStore((s) => s.email);
+  const displayName = `${user.firstName} ${user.lastName}`.trim() || email || "Admin User";
+  const initials =
+    (user.firstName?.[0] ?? "A").toUpperCase() + (user.lastName?.[0] ?? "U").toUpperCase();
 
   return (
     <header className="surface-glass sticky top-0 z-20 h-20 flex items-center justify-between px-8 border-b border-[color:var(--glass-border)]">
@@ -46,13 +53,13 @@ export function Topbar() {
             className="h-10 w-10 rounded-full flex items-center justify-center text-white text-sm font-semibold shadow-glow-emerald"
             style={{ background: "var(--grad-emerald)" }}
           >
-            AU
+            {initials}
           </div>
           <div className="leading-tight">
             <div className="text-sm font-semibold text-[color:var(--text-primary)]">
-              Admin User
+              {displayName}
             </div>
-            <div className="text-[11px] text-[color:var(--text-muted)]">Administrator</div>
+            <div className="text-[11px] text-[color:var(--text-muted)]">{user.role}</div>
           </div>
         </div>
       </div>
